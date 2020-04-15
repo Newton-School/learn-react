@@ -18,13 +18,14 @@ export default class Todo extends React.PureComponent {
 
   onSubmit = () => {
     this.setState(
-      { listOfTodos: [...this.state.listOfTodos, this.newItem] },
+      (prevState) => ({
+        listOfTodos: [...prevState.listOfTodos, this.newItem],
+      }),
       () => {
-        console.log(this.state);
+        console.log(this.state.listOfTodos);
+        this.newItem = "";
       }
     );
-
-    this.newItem = "";
   };
 
   render() {
@@ -33,7 +34,12 @@ export default class Todo extends React.PureComponent {
         <h1 className={styles.title}>TODO</h1>
 
         <div style={{ display: "flex" }}>
-          <Input onChange={this.setTodoItem} />
+          <Input
+            onChange={this.setTodoItem}
+            ref={(ref) => {
+              this.input = ref;
+            }}
+          />
 
           <Button label="Add" onClick={this.onSubmit} />
         </div>

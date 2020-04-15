@@ -15,6 +15,10 @@ export default class Input extends React.PureComponent {
     this.props.onChange(evt.target.value);
   };
 
+  reset() {
+    this.setState({ text: "" });
+  }
+
   render() {
     return <input onChange={this.handleChange} value={this.state.text} />;
   }
