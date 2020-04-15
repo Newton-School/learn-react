@@ -1,5 +1,4 @@
 import React from "react";
-import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import styles from "./style.module.css";
 
@@ -9,23 +8,29 @@ export default class Todo extends React.PureComponent {
 
     this.state = {
       listOfTodos: [],
+      text: "",
     };
   }
-
-  setTodoItem = (text) => {
-    this.newItem = text;
-  };
 
   onSubmit = () => {
     this.setState(
       (prevState) => ({
-        listOfTodos: [...prevState.listOfTodos, this.newItem],
+        listOfTodos: [...prevState.listOfTodos, this.state.text],
       }),
       () => {
-        console.log(this.state.listOfTodos);
+        this.reset();
+
         this.newItem = "";
       }
     );
+  };
+
+  handleChange = (evt) => {
+    this.setState({ text: evt.target.value });
+  };
+
+  reset = () => {
+    this.setState({ text: "" });
   };
 
   render() {
@@ -34,12 +39,7 @@ export default class Todo extends React.PureComponent {
         <h1 className={styles.title}>TODO</h1>
 
         <div style={{ display: "flex" }}>
-          <Input
-            onChange={this.setTodoItem}
-            ref={(ref) => {
-              this.input = ref;
-            }}
-          />
+          <input onChange={this.handleChange} value={this.state.text} />
 
           <Button label="Add" onClick={this.onSubmit} />
         </div>
