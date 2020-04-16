@@ -40,13 +40,23 @@ export default class Todo extends React.PureComponent {
     this.setState({ text: "" });
   };
 
+  removeTodoItem = (todo) => {
+    const todoIndex = this.state.listOfTodos.indexOf(todo);
+    const newListOfTodos = [...this.state.listOfTodos];
+    newListOfTodos.splice(todoIndex, 1);
+
+    this.setState({
+      listOfTodos: [...newListOfTodos],
+    });
+  };
+
   renderListItem = (listOfTodos) => {
     if (!listOfTodos.length) {
       return <li>No todos are available!</li>;
     }
 
     return listOfTodos.map((todo, index) => {
-      return <ListItem key={todo} todo={todo} />;
+      return <ListItem key={todo} todo={todo} onRemove={this.removeTodoItem} />;
     });
   };
 
@@ -69,10 +79,6 @@ export default class Todo extends React.PureComponent {
 
         <ul className={styles.listOftodos}>
           {this.renderListItem(listOfTodos)}
-        </ul>
-
-        <ul>
-          <ListItem todoArr={listOfTodos} />
         </ul>
       </div>
     );

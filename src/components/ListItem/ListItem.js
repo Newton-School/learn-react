@@ -1,37 +1,20 @@
 import React from "react";
 
-export default class Todo extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      todoArrState: [],
-    };
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (
-      nextProps.todoArr &&
-      nextProps.todoArr.length &&
-      nextProps.todoArr.length !== prevState.todoArrState.length
-    ) {
-      console.log(nextProps, prevState);
-
-      return {
-        todoArrState: [...nextProps.todoArr, "added something"],
-      };
-    }
-
-    return null;
+export default class ListItem extends React.PureComponent {
+  componentWillUnmount() {
+    alert("hey");
   }
 
   render() {
-    const { todo, todoArr } = this.props;
+    const { todo, onRemove } = this.props;
 
-    if (todoArr && todoArr.length && typeof todoArr === "object") {
-      return <li>{JSON.stringify(this.state.todoArrState)}</li>;
-    }
-
-    return <li style={{ marginTop: 8 }}>{todo}</li>;
+    return (
+      <li style={{ marginTop: 8 }}>
+        {todo} &nbsp; &nbsp;
+        <button type="button" onClick={() => onRemove(todo)}>
+          X
+        </button>
+      </li>
+    );
   }
 }
