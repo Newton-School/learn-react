@@ -1,4 +1,5 @@
 import React from "react";
+import ListItem from "../../components/ListItem/ListItem";
 import Button from "../../components/Button/Button";
 import styles from "./style.module.css";
 
@@ -45,14 +46,7 @@ export default class Todo extends React.PureComponent {
     }
 
     return listOfTodos.map((todo, index) => {
-      const newTodo = `Todo ${index + 1}: ${todo}`;
-
-      return (
-        <React.Fragment key={index}>
-          <li style={{ marginTop: 8 }}>{newTodo}</li>
-          <li>{index}</li>
-        </React.Fragment>
-      );
+      return <ListItem key={todo} todo={todo} />;
     });
   };
 
@@ -75,6 +69,10 @@ export default class Todo extends React.PureComponent {
 
         <ul className={styles.listOftodos}>
           {this.renderListItem(listOfTodos)}
+        </ul>
+
+        <ul>
+          <ListItem todoArr={listOfTodos} />
         </ul>
       </div>
     );
