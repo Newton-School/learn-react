@@ -12,7 +12,7 @@ export default class Todo extends React.PureComponent {
     };
   }
 
-  onSubmit = () => {
+  onAddTodo = () => {
     this.setState(
       (prevState) => ({
         listOfTodos: [...prevState.listOfTodos, this.state.text],
@@ -25,6 +25,12 @@ export default class Todo extends React.PureComponent {
     );
   };
 
+  onKeyDown = (evt) => {
+    if (evt.key === "Enter") {
+      this.onAddTodo();
+    }
+  };
+
   handleChange = (evt) => {
     this.setState({ text: evt.target.value });
   };
@@ -33,16 +39,43 @@ export default class Todo extends React.PureComponent {
     this.setState({ text: "" });
   };
 
+  renderListItem = (listOfTodos) => {
+    if (!listOfTodos.length) {
+      return <li>No todos are available!</li>;
+    }
+
+    return listOfTodos.map((todo, index) => {
+      const newTodo = `Todo ${index + 1}: ${todo}`;
+
+      return (
+        <React.Fragment key={index}>
+          <li style={{ marginTop: 8 }}>{newTodo}</li>
+          <li>{index}</li>
+        </React.Fragment>
+      );
+    });
+  };
+
   render() {
+    const { listOfTodos } = this.state;
+
     return (
       <div className={styles.container}>
         <h1 className={styles.title}>TODO</h1>
 
         <div style={{ display: "flex" }}>
-          <input onChange={this.handleChange} value={this.state.text} />
+          <input
+            onChange={this.handleChange}
+            onKeyDown={this.onKeyDown}
+            value={this.state.text}
+          />
 
-          <Button label="Add" onClick={this.onSubmit} />
+          <Button label="Add" onClick={this.onAddTodo} />
         </div>
+
+        <ul className={styles.listOftodos}>
+          {this.renderListItem(listOfTodos)}
+        </ul>
       </div>
     );
   }
