@@ -1,5 +1,5 @@
 import React from "react";
-import "./store/store";
+// import "./store/store";
 import "./styles/base.css";
 
 function App() {
