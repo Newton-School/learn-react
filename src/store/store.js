@@ -1,15 +1,8 @@
 // import { createStore } from "redux";
-import counter from "../reducers/counter";
-
-const alertMe = () => {
-  alert(`Counter value: ${store.getState()}`);
-};
-
-const consoleMe = () => {
-  console.log(`Counter value: ${store.getState()}`);
-};
+import reducers from "../reducers/";
 
 const createStore = (reducer) => {
+  // reducer = (state = {}, action) => {}
   let state;
   let listenerList = [];
 
@@ -43,18 +36,13 @@ const createStore = (reducer) => {
   };
 };
 
-// Creating a redux store
-const store = createStore(counter);
+// reducers = (state = {}, action) => {}
+const store = createStore(reducers);
 
 console.log(store.getState());
 
-store.subscribe(alertMe);
+store.dispatch({ type: "INCREMENT" });
 
-// Function that removes the listener consoleMe
-const removeConsoleListener = store.subscribe(consoleMe);
+console.log(store.getState());
 
-store.dispatch({ type: "INCREMENT" }); // 1
-
-removeConsoleListener();
-
-store.dispatch({ type: "INCREMENT" }); // 1
+export default store;

@@ -1,6 +1,6 @@
-const initialState = 0;
+const initialCounterValue = 0;
 
-const counter = (state = initialState, action) => {
+const counter = (state = initialCounterValue, action) => {
   switch (action.type) {
     case "INCREMENT":
       return state + 1;
