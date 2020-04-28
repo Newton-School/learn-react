@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { getEmployees } from "../actions/employees";
 
 class EmployeeList extends React.PureComponent {
@@ -26,7 +27,11 @@ class EmployeeList extends React.PureComponent {
       <div>
         <ul>
           {this.props.employeeList.map((employee) => (
-            <li key={employee.id}>{employee.employee_name}</li>
+            <li key={employee.id}>
+              <Link to={`/employees/${employee.id}`}>
+                {employee.employee_name}
+              </Link>
+            </li>
           ))}
         </ul>
       </div>
