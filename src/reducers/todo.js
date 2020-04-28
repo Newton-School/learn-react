@@ -1,3 +1,5 @@
+import { TODO } from "../type";
+
 const initialTodos = [
   {
     id: 1,
@@ -13,7 +15,7 @@ const initialTodos = [
 
 const todos = (state = initialTodos, action) => {
   switch (action.type) {
-    case "ADD_TODO": {
+    case TODO.ADD_TODO: {
       const { id, text, completed } = action;
 
       return [
@@ -25,7 +27,7 @@ const todos = (state = initialTodos, action) => {
         },
       ];
     }
-    case "TOGGLE_TODO": {
+    case TODO.TOGGLE_TODO: {
       const { id } = action;
 
       return state.map((todo) => {
