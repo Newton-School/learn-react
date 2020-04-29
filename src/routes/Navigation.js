@@ -1,7 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
+import PublicRoute from "./PublicRoute";
+import PrivateRoute from "./PrivateRoute";
 import Header from "../components/Header/Header";
 import Home from "../containers/Home";
+import Login from "../containers/Login";
 import About from "../containers/About";
 import EmployeeList from "../containers/EmployeeList";
 import EmployeeDetail from "../containers/EmployeeDetail";
@@ -13,11 +16,12 @@ class Navigation extends React.PureComponent {
         <Header />
 
         <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/about" component={About} />
-          <Route path="/employees" exact component={EmployeeList} />
-          <Route path="/employees/:id" component={EmployeeDetail} />
-          <Route path="/employee-detail" component={EmployeeDetail} />
+          <PublicRoute path="/" exact component={Home} />
+          <PublicRoute path="/login" restricted exact component={Login} />
+          <PrivateRoute path="/about" component={About} />
+          <PrivateRoute path="/employees" exact component={EmployeeList} />
+          <PrivateRoute path="/employees/:id" component={EmployeeDetail} />
+          <PrivateRoute path="/employee-detail" component={EmployeeDetail} />
         </Switch>
       </Router>
     );
