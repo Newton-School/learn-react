@@ -8,6 +8,14 @@ class EmployeeList extends React.PureComponent {
     this.props.getEmployees();
   }
 
+  navigateHandler = (employee, history) => {
+    history.push("/employee-detail", { ...employee });
+  };
+
+  gotoEmployeeDetail = (employee) => {
+    return () => this.navigateHandler(employee, this.props.history);
+  };
+
   render() {
     const { err, loading, employeeList } = this.props;
 
@@ -24,13 +32,32 @@ class EmployeeList extends React.PureComponent {
     }
 
     return (
-      <div>
+      <div style={{ margin: 10 }}>
         <ul>
           {this.props.employeeList.map((employee) => (
-            <li key={employee.id}>
+            <li key={employee.id} style={{ margin: 10 }}>
               <Link to={`/employees/${employee.id}`}>
-                {employee.employee_name}
+                Get data from param: {employee.employee_name}
               </Link>
+
+              <br />
+
+              <Link
+                to={{
+                  pathname: "/employee-detail",
+                  state: {
+                    ...employee,
+                  },
+                }}
+              >
+                Get data from state: {employee.employee_name}
+              </Link>
+
+              <br />
+
+              <button onClick={this.gotoEmployeeDetail(employee)}>
+                Navigate based on event: {employee.employee_name}
+              </button>
             </li>
           ))}
         </ul>

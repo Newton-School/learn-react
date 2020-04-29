@@ -17,6 +17,7 @@ class Navigation extends React.PureComponent {
           <Route path="/about" component={About} />
           <Route path="/employees" exact component={EmployeeList} />
           <Route path="/employees/:id" component={EmployeeDetail} />
+          <Route path="/employee-detail" component={EmployeeDetail} />
         </Switch>
       </Router>
     );
