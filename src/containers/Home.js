@@ -7,15 +7,16 @@ const Home = () => {
   // Renders everytime
   useEffect(() => {
     console.log("Renders everytime");
-
-    return () => {
-      console.log("component will unmount");
-    };
   });
 
   // Renders once. Equivalent to componentDidMount
   useEffect(() => {
     console.log("Renders once");
+
+    // componentWillUnmount
+    return () => {
+      console.log("component will unmount");
+    };
   }, []);
 
   // Render only when counter1 changes
