@@ -7,6 +7,7 @@ import Home from "../containers/Home";
 import Login from "../containers/Login";
 import About from "../containers/About";
 import EmployeeList from "../containers/EmployeeList";
+import EmployeeListCustomHook from "../containers/EmployeeListCustomHook";
 import EmployeeDetail from "../containers/EmployeeDetail";
 
 class Navigation extends React.PureComponent {
@@ -21,6 +22,10 @@ class Navigation extends React.PureComponent {
           <PrivateRoute path="/about" component={About} />
           <PrivateRoute path="/employees" exact component={EmployeeList} />
           <PrivateRoute path="/employees/:id" component={EmployeeDetail} />
+          <PrivateRoute
+            path="/employees-hook"
+            component={EmployeeListCustomHook}
+          />
           <PrivateRoute path="/employee-detail" component={EmployeeDetail} />
         </Switch>
       </Router>
