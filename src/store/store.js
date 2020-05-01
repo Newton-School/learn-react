@@ -1,6 +1,7 @@
-import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import reducers from "../reducers/";
+// import { createStore, applyMiddleware } from "redux";
+// import thunk from "redux-thunk";
+import React, { createContext, useReducer, useMemo } from "react";
+import { reducers, reducersInitialState } from "../reducers/";
 
 // const createStore = (reducer) => {
 //   // reducer = (state = {}, action) => {}
@@ -38,7 +39,16 @@ import reducers from "../reducers/";
 // };
 
 // reducers = (state = {}, action) => {}
-const middlewares = [thunk];
-const store = createStore(reducers, applyMiddleware(...middlewares));
+// const middlewares = [thunk];
+// const store = createStore(reducers, applyMiddleware(...middlewares));
 
-export default store;
+export const store = createContext(reducersInitialState);
+const { Provider } = store;
+
+export const StateProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(reducers, reducersInitialState);
+
+  const memoStore = useMemo(() => ({ state, dispatch }), [state]);
+
+  return <Provider value={memoStore}>{children}</Provider>;
+};

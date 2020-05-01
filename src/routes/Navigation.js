@@ -9,6 +9,7 @@ import About from "../containers/About";
 import EmployeeList from "../containers/EmployeeList";
 import EmployeeListCustomHook from "../containers/EmployeeListCustomHook";
 import EmployeeDetail from "../containers/EmployeeDetail";
+import TodoOperations from "../containers/TodoOperation";
 
 class Navigation extends React.PureComponent {
   render() {
@@ -22,6 +23,7 @@ class Navigation extends React.PureComponent {
           <PrivateRoute path="/about" component={About} />
           <PrivateRoute path="/employees" exact component={EmployeeList} />
           <PrivateRoute path="/employees/:id" component={EmployeeDetail} />
+          <PublicRoute path="/todo" component={TodoOperations} />
           <PrivateRoute
             path="/employees-hook"
             component={EmployeeListCustomHook}
