@@ -6,9 +6,11 @@ const AboutMe = () => {
   return <div>About Me {selectedTheme.foreground}</div>;
 };
 
-const AboutUs = () => {
+const AboutUs = React.memo(() => {
+  console.log("hey");
+
   return <div>About Us</div>;
-};
+});
 
 const AboutSomeone = () => {
   const { selectedTheme } = useContext(ThemeContext);
@@ -16,7 +18,7 @@ const AboutSomeone = () => {
   return <div>About Someone {selectedTheme.foreground}</div>;
 };
 
-const AboutAll = () => {
+const AboutAll = React.memo(() => {
   const { setTheme } = useContext(ThemeContext);
 
   return (
@@ -25,7 +27,7 @@ const AboutAll = () => {
       <button onClick={() => setTheme({ ...theme.dark })}>Change Theme</button>
     </div>
   );
-};
+});
 
 const About = () => {
   const [selectedTheme, setTheme] = useState({ ...theme.light });
