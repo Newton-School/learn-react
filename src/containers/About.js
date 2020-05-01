@@ -1,44 +1,41 @@
-import React, { useContext, useState } from "react";
-import { ThemeContext, theme } from "../context/themeContext";
+import React, { useState, useMemo, useEffect, useCallback } from "react";
 
-const AboutMe = () => {
-  const { selectedTheme } = useContext(ThemeContext);
-  return <div>About Me {selectedTheme.foreground}</div>;
-};
+const AboutMe = React.memo((props) => {
+  const { dataFetch } = props;
 
-const AboutUs = React.memo(() => {
-  console.log("hey");
-
-  return <div>About Us</div>;
-});
-
-const AboutSomeone = () => {
-  const { selectedTheme } = useContext(ThemeContext);
-
-  return <div>About Someone {selectedTheme.foreground}</div>;
-};
-
-const AboutAll = React.memo(() => {
-  const { setTheme } = useContext(ThemeContext);
-
-  return (
-    <div>
-      <p>About All</p>
-      <button onClick={() => setTheme({ ...theme.dark })}>Change Theme</button>
-    </div>
-  );
+  useEffect(() => {
+    dataFetch("Child - About Me");
+  }, [dataFetch]);
+  return <div>About Me</div>;
 });
 
 const About = () => {
-  const [selectedTheme, setTheme] = useState({ ...theme.light });
+  const [counter1, setCounter1] = useState(0);
+
+  const fruits = useMemo(() => ["orange", "banana", "apple"], []);
+
+  const dataFetch = useCallback((str) => {
+    fetch("http://dummy.restapiexample.com/api/v1/employees")
+      .then((res) => res.json())
+      .then((res) => console.log(str, res.data));
+  }, []);
+
+  useEffect(() => {
+    dataFetch("Parent - About");
+  }, [dataFetch]);
 
   return (
-    <ThemeContext.Provider value={{ selectedTheme, setTheme }}>
-      <AboutMe />
-      <AboutUs />
-      <AboutAll />
-      <AboutSomeone />
-    </ThemeContext.Provider>
+    <div>
+      <div>
+        <p>Counter1: {counter1}</p>
+
+        <button type="button" onClick={() => setCounter1(counter1 + 1)}>
+          Update Counter
+        </button>
+      </div>
+
+      <AboutMe fruits={fruits} dataFetch={dataFetch} />
+    </div>
   );
 };
 

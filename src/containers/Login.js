@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useRef, useEffect } from "react";
 
 const isSuccess = true;
 
@@ -50,6 +50,11 @@ const login = (state = {}, action) => {
 const Login = () => {
   const [state, disptach] = useReducer(login, loginInitialState);
   const { err, loading, username, password } = state;
+  const usernameRef = useRef(null);
+
+  useEffect(() => {
+    usernameRef.current.focus();
+  }, []);
 
   const onInputChange = (evt) => {
     disptach({
@@ -84,6 +89,7 @@ const Login = () => {
         name="username"
         onChange={onInputChange}
         placeholder="username"
+        ref={usernameRef}
       />
       <input
         value={password}

@@ -1,4 +1,4 @@
-const token = false;
+const token = true;
 
 export const isLogin = () => {
   if (token) {
