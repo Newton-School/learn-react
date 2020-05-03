@@ -1,4 +1,12 @@
-import React, { useState, useMemo, useEffect, useCallback } from "react";
+import React, {
+  useState,
+  useMemo,
+  useEffect,
+  useCallback,
+  Suspense,
+} from "react";
+
+const Profile = React.lazy(() => import("./Profile"));
 
 const AboutMe = React.memo((props) => {
   const { dataFetch } = props;
@@ -35,6 +43,10 @@ const About = () => {
       </div>
 
       <AboutMe fruits={fruits} dataFetch={dataFetch} />
+
+      <Suspense fallback={<div>Loading...</div>}>
+        <Profile />
+      </Suspense>
     </div>
   );
 };
